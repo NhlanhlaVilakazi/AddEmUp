@@ -1,2 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using AddEmUp;
+
+public class Program 
+{
+    public static void Main()
+    {
+        string? userInput = Console.ReadLine();
+        winner winner = new(userInput);
+        winner.GetInputFile(userInput);
+    }
+}
