@@ -28,7 +28,7 @@ namespace AddEmUp
 
         public void GetGameWinner(string? inputFileName, string? outputFileName)
         {
-            string winner = string.Empty;
+            string gameOutcome = string.Empty;
             int highScore = 0;
             try
             {
@@ -42,14 +42,14 @@ namespace AddEmUp
                     if (playerScore > highScore)
                     {
                         highScore = playerScore;
-                        winner = results;
+                        gameOutcome = results;
                     }
                 }
-                RecordGameWinner(winner);
+                LogResults(gameOutcome);
             }
             catch (Exception)
             {
-                RecordGameWinner("ERROR");
+                LogResults("ERROR");
             }
         }
 
@@ -79,13 +79,13 @@ namespace AddEmUp
             return 2;
         }
 
-        public void RecordGameWinner(string winner)
+        public void LogResults(string gameOutcome)
         {
             string? fileName = GetOutPutFile();
             try
             {
                 using var writer = new StreamWriter(fileName);
-                writer.Write(winner);
+                writer.Write(gameOutcome);
             }
             catch (Exception exp)
             {
