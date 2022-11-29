@@ -26,7 +26,7 @@ namespace AddEmUp
             return _userInput?.Substring(_userInput.LastIndexOf(" ") + 1);
         }
 
-        public void GetGameWinner(string? inputFileName, string? outputFileName)
+        public void GetGameWinner()
         {
             string gameOutcome = string.Empty;
             int highScore = 0;
@@ -34,7 +34,7 @@ namespace AddEmUp
             {
                 string fileInput;
                 int playerScore;
-                using var file = new StreamReader(inputFileName);
+                using var file = new StreamReader(GetInputFile());
                 while ((fileInput = file.ReadLine()) != null)
                 {
                     string results = GetPlayerScore(fileInput);
@@ -61,10 +61,10 @@ namespace AddEmUp
 
             for (int k = 0; k < playerCards.Length; k++)
             {
-                if (Char.IsLetter(playerCards[k]))
+                if (char.IsLetter(playerCards[k]))
                     cardValue = cardValues[Array.IndexOf(cardFaces, playerCards[k])];
                 else
-                    cardValue = (int)Char.GetNumericValue(playerCards[k]);
+                    cardValue = (int)char.GetNumericValue(playerCards[k]);
 
                 k += IncrementLoopControl(playerCards[k + 1]);
                 playerScore += cardValue;
@@ -72,9 +72,9 @@ namespace AddEmUp
             return $"{player}: {playerScore}";
         }
 
-        public int IncrementLoopControl(Char nextCharacter)
+        public int IncrementLoopControl(char nextCharacter)
         {
-            if (Char.IsNumber(nextCharacter))
+            if (char.IsNumber(nextCharacter))
                 return 1;
             return 2;
         }
@@ -96,8 +96,7 @@ namespace AddEmUp
         public static void Main()
         {
             string? command = Console.ReadLine();
-            winner winner = new(command);
-            winner.GetGameWinner(winner.GetInputFile(), winner.GetOutPutFile());
+            new winner(command).GetGameWinner();
         }
     }
 }
